@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NumberSeparateEditText">
+        <attr name="NumberType" format="enum">
+            <enum name="Phone" value="1"/>
+            <enum name="BankCard" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>
