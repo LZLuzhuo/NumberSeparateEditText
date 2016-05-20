@@ -17,13 +17,13 @@ package me.luzhuo.numberseparateedittext;
 /**
  * =================================================
  * <p>
- * Author: 卢卓
+ * Author: Luzhuo
  * <p>
  * Version: 1.0
  * <p>
  * Creation Date: 2016/5/19 11:33
  * <p>
- * Description:数字输入监听接口
+ * Description:Number input Listener interfaces.
  * <p>
  * Revision History:
  * <p>
@@ -33,8 +33,8 @@ package me.luzhuo.numberseparateedittext;
  **/
 public interface NumberTextWatcher {
     /**
-     * 输入框输入的改变
-     * @param s
+     * Change the input box.
+     * @param s number.
      */
     void onTextChanged(String s);
 }

@@ -19,19 +19,19 @@ import android.text.TextWatcher;
 
 /**
  * =================================================
- * <p/>
- * Author: 卢卓
- * <p/>
+ * <p>
+ * Author: uzhuo
+ * <p>
  * Version: 1.0
- * <p/>
+ * <p>
  * Creation Date: 2016/5/17 14:22
- * <p/>
+ * <p>
  * Description:
- * <p/>
+ * <p>
  * Revision History:
- * <p/>
+ * <p>
  * Copyright: Copyright 2016 Luzhuo. All rights reserved.
- * <p/>
+ * <p>
  * =================================================
  **/
 public class TextWatcherImpl implements TextWatcher {
