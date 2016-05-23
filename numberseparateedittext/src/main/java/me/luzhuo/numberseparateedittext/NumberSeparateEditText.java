@@ -49,6 +49,7 @@ public class NumberSeparateEditText extends EditText {
 
     private String AUTO = "http://schemas.android.com/apk/res-auto";
     private String[] numberTypeAttrs = new String[]{"1", "2"};
+    private final int PHONEMAXLENGTH = 13, BANKCARDMAXLENGTH = 23;
 
     public enum NumberType{
         Phone, BankCard
@@ -84,16 +85,6 @@ public class NumberSeparateEditText extends EditText {
      */
     public void setNumberType(NumberType numtype){
         this.numberType = numtype;
-        // Limit the number of inputs.
-        if(numtype == NumberType.Phone) this.setFilters(getInputFilter(13));
-        if(numtype == NumberType.BankCard) this.setFilters(getInputFilter(23));
-    }
-
-    /**
-     * get input filter.
-     */
-    private InputFilter[] getInputFilter(int maxlength){
-        return new InputFilter[]{new InputFilter.LengthFilter(maxlength)};
     }
 
     private boolean isRun = false;
@@ -107,10 +98,10 @@ public class NumberSeparateEditText extends EditText {
             }
             isRun = true;
 
-            // Log.e(TAG, before == 0 ? "+" : "-");
+            // Log.e(TAG, "CharSequence"+s.toString());
 
             // data processing
-            String separateText = separateNumberText(s.toString().trim(), before == 0 ? true : false);
+            String separateText = separateNumberText(getNumberText(s.toString()));
             NumberSeparateEditText.this.setText(separateText);
             NumberSeparateEditText.this.setSelection(separateText.length());
             if(textWatcher != null) textWatcher.onTextChanged(getNumber());
@@ -120,51 +111,37 @@ public class NumberSeparateEditText extends EditText {
     /**
      * separate number.
      * @param originalData user input text number.
-     * @param isAdd true:user input operation, false:user delete operation.
      * @return data separate.
      */
-    private String separateNumberText(String originalData, boolean isAdd) {
-        char[] bytes = originalData.toCharArray();
+    private String separateNumberText(String originalData) {
+        String data = "";
+        // avoid pasting data.
+        if(numberType == NumberType.Phone)  data = originalData.substring(0, originalData.length() <= PHONEMAXLENGTH - 2 ? originalData.length() : PHONEMAXLENGTH - 2);
+        if(numberType == NumberType.BankCard)  data = originalData.substring(0, originalData.length() <= BANKCARDMAXLENGTH - 4 ? originalData.length() : BANKCARDMAXLENGTH - 4);
+
+        char[] bytes = data.toCharArray();
         StringBuffer sb = new StringBuffer();
         for (int x = 0; x < bytes.length; x++){
             System.out.println();
-            if(isAdd && numberType != null) {
+            if(numberType != null) {
                 switch (numberType){
                     case Phone:
-                        if (x == 2 || x == 7) {
-                            /*sb.append(bytes[x]);
-                            sb.append(" ");*/
-                            sbAppend(true, sb, bytes, x);
-                            continue;
-                        } else if (x == 3 || x == 8) {
-                            continue;
-                        } else {
-                            /*sb.append(bytes[x]);*/
-                            sbAppend(false, sb, bytes, x);
-                        }
+                        if (x == 3 || x == 7) sbAppend(true, sb, bytes, x);
+                        else sbAppend(false, sb, bytes, x);
                         break;
                     case BankCard:
-                        if (x == 3 || x == 8 || x == 13 || x == 18) {
-                            sbAppend(true, sb, bytes, x);
-                            continue;
-                        } else if (x == 4 || x == 9 || x == 14 || x == 19) {
-                            continue;
-                        } else {
-                            sbAppend(false, sb, bytes, x);
-                        }
+                        if (x == 4 || x == 8 || x == 12 || x == 16) sbAppend(true, sb, bytes, x);
+                        else sbAppend(false, sb, bytes, x);
                         break;
                 }
-
-            }else{
-                sb.append(bytes[x]);
             }
         }
         return sb.toString();
     }
 
     private void sbAppend(boolean addSpace,StringBuffer sb, char[] bytes, int x){
-        sb.append(bytes[x]);
         if(addSpace) sb.append(" ");
+        sb.append(bytes[x]);
     }
 
     /**
@@ -172,7 +149,16 @@ public class NumberSeparateEditText extends EditText {
      * @return number.
      */
     public String getNumber() {
-        String text = this.getText().toString().trim();
+        return getNumberText(this.getText().toString());
+    }
+
+    /**
+     * trim data.
+     * @param data need to trim data
+     * @return finishing complete data.
+     */
+    private String getNumberText(String data){
+        String text = data.trim();
         char[] bytes = text.toCharArray();
         StringBuffer sb = new StringBuffer();
         for (int x = 0; x < bytes.length; x++){

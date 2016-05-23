@@ -9,7 +9,7 @@ Separated some common digital information input by the user, such as a telephone
 
 	dependencies {
 	    ...
-	    compile 'me.luzhuo.numberseparateedittext:numberseparateedittext:1.0.2'
+	    compile 'me.luzhuo.numberseparateedittext:numberseparateedittext:1.0.3'
 	}
 
 
@@ -41,7 +41,8 @@ Separated some common digital information input by the user, such as a telephone
 ## About author
 
 Luzhuo  
-Email:LZ.Luzhuo@gmail.com
+Email:LZ.Luzhuo@gmail.com  
+Blog:
 
 
 ## License
