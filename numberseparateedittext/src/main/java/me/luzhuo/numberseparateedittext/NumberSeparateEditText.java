@@ -114,10 +114,15 @@ public class NumberSeparateEditText extends EditText {
      * @return data separate.
      */
     private String separateNumberText(String originalData) {
-        String data = "";
+        String data;
         // avoid pasting data.
-        if(numberType == NumberType.Phone)  data = originalData.substring(0, originalData.length() <= PHONEMAXLENGTH - 2 ? originalData.length() : PHONEMAXLENGTH - 2);
-        if(numberType == NumberType.BankCard)  data = originalData.substring(0, originalData.length() <= BANKCARDMAXLENGTH - 4 ? originalData.length() : BANKCARDMAXLENGTH - 4);
+        if(numberType == NumberType.Phone) {
+            data = originalData.substring(0, originalData.length() <= PHONEMAXLENGTH - 2 ? originalData.length() : PHONEMAXLENGTH - 2);
+        }else if(numberType == NumberType.BankCard){
+            data = originalData.substring(0, originalData.length() <= BANKCARDMAXLENGTH - 4 ? originalData.length() : BANKCARDMAXLENGTH - 4);
+        }else{
+            data = originalData;
+        }
 
         char[] bytes = data.toCharArray();
         StringBuffer sb = new StringBuffer();
@@ -134,6 +139,8 @@ public class NumberSeparateEditText extends EditText {
                         else sbAppend(false, sb, bytes, x);
                         break;
                 }
+            }else{
+                sbAppend(false, sb, bytes, x);
             }
         }
         return sb.toString();
