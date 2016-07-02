@@ -16,19 +16,19 @@ package me.luzhuo.numberseparateedittext;
 
 /**
  * =================================================
- * <p/>
- * Author: 卢卓
- * <p/>
+ * <p>
+ * Author: Luzhuo
+ * <p>
  * Version: 1.0
- * <p/>
+ * <p>
  * Creation Date: 2016/6/28 18:20
- * <p/>
+ * <p>
  * Description:
- * <p/>
+ * <p>
  * Revision History:
- * <p/>
- * Copyright:
- * <p/>
+ * <p>
+ * Copyright: Copyright 2016 Luzhuo. All rights reserved.
+ * <p>
  * =================================================
  **/
 public interface ExpandParameter {

@@ -9,7 +9,7 @@ Separated some common digital information input by the user, such as a telephone
 
 	dependencies {
 	    ...
-	    compile 'me.luzhuo.numberseparateedittext:numberseparateedittext:1.0.4'
+	    compile 'me.luzhuo.numberseparateedittext:numberseparateedittext:1.0.5'
 	}
 
 
@@ -29,20 +29,33 @@ Separated some common digital information input by the user, such as a telephone
 	xml: app:NumberType="Phone"
 	code: setNumberType(NumberType numtype);
 
-	parameters: Phone / BankCard .
+	parameters: Phone / BankCard / IdCard / Expand .
 
 ##### get number:
 	code: String getNumber();
 
 ##### set NumberSeparateEditText input change listener:
-	code: addTextChangedListener(NumberTextWatcher textWatcher)
+	code: addTextChangedListener(NumberTextWatcher textWatcher);
 
+#### set NumberSeparateEditText input expand:
+	code: setExpand(int numbermax, ExpandParameter expandParameter);
+
+	demo:  
+		number.setExpand(10, new ExpandParameter(){
+		    @Override
+		    public boolean matching(int index) {
+		        if(index == 3 || index == 6) return true;
+		        else return false;
+		    }
+		});
+
+![](/screenshot/NumberSeparateEditText05.png)
 
 ## About author
 
 Luzhuo  
-Email:LZ.Luzhuo@gmail.com  
-Blog:
+Email: `LZ.Luzhuo@gmail.com`  
+Blog: `http://blog.csdn.net/Rozol/article/details/51811330`  
 
 
 ## License
