@@ -2,8 +2,10 @@
 <resources>
     <declare-styleable name="NumberSeparateEditText">
         <attr name="NumberType" format="enum">
+            <enum name="Expand" value="0"/>
             <enum name="Phone" value="1"/>
             <enum name="BankCard" value="2"/>
+            <enum name="IdCard" value="3"/>
         </attr>
     </declare-styleable>
 </resources>

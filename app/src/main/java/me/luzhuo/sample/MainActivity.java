@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import me.luzhuo.numberseparateedittext.ExpandParameter;
 import me.luzhuo.numberseparateedittext.NumberSeparateEditText;
 import me.luzhuo.numberseparateedittext.NumberTextWatcher;
 
@@ -19,6 +20,14 @@ public class MainActivity extends AppCompatActivity {
 
         number = (NumberSeparateEditText) findViewById(R.id.number);
         text = (TextView) findViewById(R.id.text);
+
+        number.setExpand(10, new ExpandParameter(){
+            @Override
+            public boolean matching(int index) {
+                if(index == 3 || index == 6) return true;
+                else return false;
+            }
+        });
 
         number.addTextChangedListener(watcher);
     }

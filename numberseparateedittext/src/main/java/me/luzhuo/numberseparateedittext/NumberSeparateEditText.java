@@ -34,8 +34,10 @@ import android.widget.EditText;
  * <p>
  * Description:<pre>
  * Number input separate widget:
+ *     NumberType.Expand : expand
  *     NumberType.Phone : eleven phone number 3-4-4
- *     NumberType.BankCard : sixteen or nineteen card number 4-4-4-4-3 </pre>
+ *     NumberType.BankCard : sixteen or nineteen card number 4-4-4-4-3
+ *     NumberType.IdCard : Eighteen idcard number 6-8-4 </pre>
  * <p>
  * Revision History:
  * <p>
@@ -48,11 +50,12 @@ public class NumberSeparateEditText extends EditText {
     private static final String TAG = NumberSeparateEditText.class.getSimpleName();
 
     private String AUTO = "http://schemas.android.com/apk/res-auto";
-    private String[] numberTypeAttrs = new String[]{"1", "2"};
-    private final int PHONEMAXLENGTH = 13, BANKCARDMAXLENGTH = 23;
+    private String[] numberTypeAttrs = new String[]{"0", "1", "2", "3", "4"};
+    private final int PHONEMAXLENGTH = 11, BANKCARDMAXLENGTH = 19, IDCARDMAXLENGTH = 18;
+    private int ExpandMaxLength = Integer.MAX_VALUE; private ExpandParameter expandParameter;
 
     public enum NumberType{
-        Phone, BankCard
+        Phone, BankCard, IdCard, Expand
     }
 
     public NumberSeparateEditText(Context context) {
@@ -63,8 +66,10 @@ public class NumberSeparateEditText extends EditText {
     public NumberSeparateEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        if(numberTypeAttrs[0].equals(attrs.getAttributeValue(AUTO, "NumberType"))) setNumberType(NumberType.Phone);
-        if(numberTypeAttrs[1].equals(attrs.getAttributeValue(AUTO, "NumberType"))) setNumberType(NumberType.BankCard);
+        if(numberTypeAttrs[0].equals(attrs.getAttributeValue(AUTO, "NumberType"))) setNumberType(NumberType.Expand);
+        if(numberTypeAttrs[1].equals(attrs.getAttributeValue(AUTO, "NumberType"))) setNumberType(NumberType.Phone);
+        if(numberTypeAttrs[2].equals(attrs.getAttributeValue(AUTO, "NumberType"))) setNumberType(NumberType.BankCard);
+        if(numberTypeAttrs[3].equals(attrs.getAttributeValue(AUTO, "NumberType"))) setNumberType(NumberType.IdCard);
 
         initData();
     }
@@ -117,25 +122,38 @@ public class NumberSeparateEditText extends EditText {
         String data;
         // avoid pasting data.
         if(numberType == NumberType.Phone) {
-            data = originalData.substring(0, originalData.length() <= PHONEMAXLENGTH - 2 ? originalData.length() : PHONEMAXLENGTH - 2);
+            data = originalData.substring(0, originalData.length() <= PHONEMAXLENGTH ? originalData.length() : PHONEMAXLENGTH);
         }else if(numberType == NumberType.BankCard){
-            data = originalData.substring(0, originalData.length() <= BANKCARDMAXLENGTH - 4 ? originalData.length() : BANKCARDMAXLENGTH - 4);
-        }else{
+            data = originalData.substring(0, originalData.length() <= BANKCARDMAXLENGTH ? originalData.length() : BANKCARDMAXLENGTH);
+        }else if(numberType == NumberType.IdCard){
+            data = originalData.substring(0, originalData.length() <= IDCARDMAXLENGTH ? originalData.length() : IDCARDMAXLENGTH);
+        }else if(numberType == NumberType.Expand){
+            data = originalData.substring(0, originalData.length() <= ExpandMaxLength ? originalData.length() : ExpandMaxLength);
+        } else {
             data = originalData;
         }
 
         char[] bytes = data.toCharArray();
         StringBuffer sb = new StringBuffer();
         for (int x = 0; x < bytes.length; x++){
-            System.out.println();
             if(numberType != null) {
                 switch (numberType){
+                    case Expand:
+                        if(expandParameter != null){
+                            if(expandParameter.matching(x)) sbAppend(true, sb, bytes, x);
+                            else sbAppend(false, sb, bytes, x);
+                        }else sbAppend(false, sb, bytes, x);
+                        break;
                     case Phone:
                         if (x == 3 || x == 7) sbAppend(true, sb, bytes, x);
                         else sbAppend(false, sb, bytes, x);
                         break;
                     case BankCard:
                         if (x == 4 || x == 8 || x == 12 || x == 16) sbAppend(true, sb, bytes, x);
+                        else sbAppend(false, sb, bytes, x);
+                        break;
+                    case IdCard:
+                        if (x == 6 || x == 14) sbAppend(true, sb, bytes, x);
                         else sbAppend(false, sb, bytes, x);
                         break;
                 }
@@ -182,5 +200,15 @@ public class NumberSeparateEditText extends EditText {
      */
     public void addTextChangedListener(NumberTextWatcher textWatcher){
         this.textWatcher = textWatcher;
+    }
+
+    /**
+     * set expand
+     * @param numbermax Limit the length.
+     * @param expandParameter If it is null, don't break up, or implement ExpandParameter interface
+     */
+    public void setExpand(int numbermax, ExpandParameter expandParameter){
+        this.ExpandMaxLength = numbermax;
+        this.expandParameter = expandParameter;
     }
 }

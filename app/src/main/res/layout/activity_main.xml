@@ -15,7 +15,7 @@
         android:id="@+id/number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:NumberType="Phone"/>
+        app:NumberType="Expand"/>
 
     <TextView
         android:background="@android:color/darker_gray"
