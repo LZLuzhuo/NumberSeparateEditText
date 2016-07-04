@@ -81,7 +81,6 @@ public class NumberSeparateEditText extends EditText {
 
     private void initData() {
         this.addTextChangedListener(watcher);
-        this.setInputType(InputType.TYPE_CLASS_NUMBER);
     }
 
     /**
@@ -90,6 +89,11 @@ public class NumberSeparateEditText extends EditText {
      */
     public void setNumberType(NumberType numtype){
         this.numberType = numtype;
+
+        switch (numtype){
+            case IdCard: this.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD); break;
+            default: this.setInputType(InputType.TYPE_CLASS_NUMBER); break;
+        }
     }
 
     private boolean isRun = false;
