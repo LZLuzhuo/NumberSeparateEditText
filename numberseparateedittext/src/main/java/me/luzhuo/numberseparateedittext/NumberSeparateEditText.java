@@ -91,7 +91,7 @@ public class NumberSeparateEditText extends EditText {
         this.numberType = numtype;
 
         switch (numtype){
-            case IdCard: this.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD); break;
+            case IdCard: this.setInputType(InputType.TYPE_CLASS_PHONE); break;
             default: this.setInputType(InputType.TYPE_CLASS_NUMBER); break;
         }
     }
@@ -192,7 +192,15 @@ public class NumberSeparateEditText extends EditText {
         StringBuffer sb = new StringBuffer();
         for (int x = 0; x < bytes.length; x++){
             if(TextUtils.isEmpty(String.valueOf(bytes[x]).trim())) continue;
-            else sb.append(bytes[x]);
+            else{
+                switch (numberType){
+                    case IdCard: // 1234567890 valid, any other characters are X.
+                        if(bytes[x] >= 48 && bytes[x] <= 57) sb.append(bytes[x]);
+                        else sb.append('X'); break;
+                    default:
+                        sb.append(bytes[x]); break;
+                }
+            }
         }
         return sb.toString();
     }

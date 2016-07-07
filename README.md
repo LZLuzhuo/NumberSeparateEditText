@@ -1,9 +1,14 @@
 # NumberSeparateEditText
 ---
 
-Separated some common digital information input by the user, such as a telephone number, bank card number, etc.  
-![](/screenshot/NumberSeparateEditText01.gif)  
-![](/screenshot/NumberSeparateEditText02.gif)  
+Separated some common digital information input by the user, such as a telephone number, bank card number, etc. 
+
+ - **Phone**:  
+	![](/screenshot/NumberSeparateEditText01.gif)  
+ - **BankCard**:  
+	![](/screenshot/NumberSeparateEditText02.gif)  
+ - **IdCard**:  
+	![](/screenshot/NumberSeparateEditText03.gif)  
 
 ## Gradle
 
@@ -50,6 +55,9 @@ Separated some common digital information input by the user, such as a telephone
 		});
 
 ![](/screenshot/NumberSeparateEditText05.png)
+
+## Special note:
+- IdCard: input digital display, input other characters will be replaced with X.
 
 ## About author
 
