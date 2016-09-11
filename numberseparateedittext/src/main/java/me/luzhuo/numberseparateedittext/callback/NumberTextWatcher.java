@@ -12,21 +12,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.luzhuo.numberseparateedittext;
-
-import android.text.Editable;
-import android.text.TextWatcher;
+package me.luzhuo.numberseparateedittext.callback;
 
 /**
  * =================================================
  * <p>
- * Author: uzhuo
+ * Author: Luzhuo
  * <p>
  * Version: 1.0
  * <p>
- * Creation Date: 2016/5/17 14:22
+ * Creation Date: 2016/5/19 11:33
  * <p>
- * Description:
+ * Description:Number input Listener interfaces.
  * <p>
  * Revision History:
  * <p>
@@ -34,19 +31,10 @@ import android.text.TextWatcher;
  * <p>
  * =================================================
  **/
-public class TextWatcherImpl implements TextWatcher {
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-    }
+public interface NumberTextWatcher {
+    /**
+     * Change the input box.
+     * @param s number.
+     */
+    void onTextChanged(String s);
 }

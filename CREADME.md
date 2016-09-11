@@ -1,10 +1,10 @@
 # NumberSeparateEditText
 ---
-英文 | [中文](https://github.com/LZLuzhuo/NumberSeparateEditText/blob/master/CREADME.md)  
+[英文](https://github.com/LZLuzhuo/NumberSeparateEditText/blob/master/README.md) | 中文 
 
-Separated some common digital information input by the user, such as a telephone number, bank card number, etc. 
+分隔一些常见的用户输入的数字信息,如电话号码,银行卡号等。 
 
- - NumberSeparateEditText:
+ - 输入分隔:
 	 - **Phone**:  
 		![](/screenshot/NumberSeparateEditText01.gif)  
 	 - **BankCard**:  
@@ -12,10 +12,10 @@ Separated some common digital information input by the user, such as a telephone
 	 - **IdCard**:  
 		![](/screenshot/NumberSeparateEditText03.gif)  
 
- - NumberSeparateTextView:
+ - 文本分隔:
 	 - **Phone**  
 	 	![](/screenshot/NumberSeparateEditText06.png)  
-	 - etc.
+	 - 其他省略...
 
 ## Gradle
 
@@ -25,18 +25,18 @@ Separated some common digital information input by the user, such as a telephone
 	}
 
 
-## Usage
+## 使用
 
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 
-	// NumberSeparateEditText
+	// 输入分隔
 	<me.luzhuo.numberseparateedittext.NumberSeparateEditText
 	        android:id="@+id/number"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        app:NumberType="Phone"/>
 
-	// NumberSeparateTextView
+	// 文本
     <me.luzhuo.numberseparateedittext.NumberSeparateTextView
 	        android:id="@+id/number"
 	        android:layout_width="match_parent"
@@ -44,24 +44,24 @@ Separated some common digital information input by the user, such as a telephone
 	        app:NumberType="Phone" />
 
 
-##### Set input number type:
+##### 设置输入类型:
 	xml: app:NumberType="Phone"
 	code: setNumberType(NumberType numtype);
 
 	parameters: Phone / BankCard / IdCard .
 
-##### get number:
+##### 获取数字文本:
 	code: String getNumber();
 
-##### set number:
+##### 设置数字文本:
 	code: setNumber(int number);
 		  setNumber(String number);
 
-##### set NumberSeparateEditText input change listener:
-	// NumberSeparateEditText unique method
+##### 设置输入监听:
+	// NumberSeparateEditText 特有的方法
 	code: addTextChangedListener(NumberTextWatcher textWatcher);
 
-#### set NumberSeparateEditText input expand:
+#### 设置输入扩展:
 	code: setExpand(int numbermax, ExpandParameter expandParameter);
 
 	demo:  
@@ -75,10 +75,10 @@ Separated some common digital information input by the user, such as a telephone
 
 ![](/screenshot/NumberSeparateEditText05.png)
 
-## Special note:
-- IdCard: input digital display, input other characters will be replaced with X.
+## 注意:
+- IdCard: 输入数字显示数字,输入其他字符将被替换为X.
 
-## About author
+## 关于作者
 
 Luzhuo  
 Email: `LZ.Luzhuo@gmail.com`  

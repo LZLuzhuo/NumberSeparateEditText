@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.luzhuo.edittextdemo.MainActivity"
-    android:orientation="vertical">
+    tools:context="com.luzhuo.edittextdemo.MainActivity">
 
     <me.luzhuo.numberseparateedittext.NumberSeparateEditText
         android:id="@+id/number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:NumberType="Expand"/>
+        app:NumberType="Phone" />
 
     <TextView
-        android:background="@android:color/darker_gray"
         android:id="@+id/text"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="点击此处"
+        android:background="@android:color/darker_gray"
         android:gravity="center"
-        android:onClick="button"/>
+        android:onClick="button"
+        android:text="点击此处" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="center"
+        android:text="打开TextView例子"
+        android:onClick="startActivity"/>
 
 </LinearLayout>
