@@ -21,7 +21,7 @@
 
 	dependencies {
 	    ...
-	    compile 'me.luzhuo.numberseparateedittext:numberseparateedittext:1.0.8'
+	    compile 'me.luzhuo.numberseparateedittext:numberseparateedittext:1.0.9'
 	}
 
 
