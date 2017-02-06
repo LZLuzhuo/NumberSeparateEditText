@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.luzhuo.edittextdemo.MainActivity">
+    tools:context="me.luzhuo.sample.MainActivity">
 
     <me.luzhuo.numberseparateedittext.NumberSeparateEditText
         android:id="@+id/number"

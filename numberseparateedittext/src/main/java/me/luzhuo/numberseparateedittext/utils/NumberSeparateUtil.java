@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import me.luzhuo.numberseparateedittext.INumberSeparate;
+import me.luzhuo.numberseparateedittext.NumberType;
 import me.luzhuo.numberseparateedittext.callback.ExpandParameter;
 
 /**
@@ -39,35 +40,29 @@ import me.luzhuo.numberseparateedittext.callback.ExpandParameter;
  **/
 public class NumberSeparateUtil {
 
-    public static INumberSeparate.NumberType switchNumberType(AttributeSet attrs) {
-        if(INumberSeparate.numberTypeAttrs[0].equals(attrs.getAttributeValue(INumberSeparate.AUTO, "NumberType"))) return INumberSeparate.NumberType.Expand;
-        else if(INumberSeparate.numberTypeAttrs[1].equals(attrs.getAttributeValue(INumberSeparate.AUTO, "NumberType"))) return INumberSeparate.NumberType.Phone;
-        else if(INumberSeparate.numberTypeAttrs[2].equals(attrs.getAttributeValue(INumberSeparate.AUTO, "NumberType"))) return INumberSeparate.NumberType.BankCard;
-        else if(INumberSeparate.numberTypeAttrs[3].equals(attrs.getAttributeValue(INumberSeparate.AUTO, "NumberType"))) return INumberSeparate.NumberType.IdCard;
-        else return INumberSeparate.NumberType.Expand;
+    public static NumberType switchNumberType(AttributeSet attrs) {
+        if(NumberType.Expand.getNumberTypeAttr().equals(attrs.getAttributeValue(INumberSeparate.AUTO, "NumberType"))) return NumberType.Expand;
+        else if(NumberType.Phone.getNumberTypeAttr().equals(attrs.getAttributeValue(INumberSeparate.AUTO, "NumberType"))) return NumberType.Phone;
+        else if(NumberType.BankCard.getNumberTypeAttr().equals(attrs.getAttributeValue(INumberSeparate.AUTO, "NumberType"))) return NumberType.BankCard;
+        else if(NumberType.IdCard.getNumberTypeAttr().equals(attrs.getAttributeValue(INumberSeparate.AUTO, "NumberType"))) return NumberType.IdCard;
+        else return NumberType.Expand;
     }
 
     /**
      * separate number.
      * @param originalData user input text number.
-     * @param numberType number type {@link INumberSeparate.NumberType}
+     * @param numberType number type {@link NumberType}
      * @param expandParameter expand parameter callback.
      * @param expandMaxLength expand textcontent max length.
      * @return data separate.
      */
-    public static  String separateNumberText(String originalData, INumberSeparate.NumberType numberType, ExpandParameter expandParameter, int expandMaxLength) {
+    public static  String separateNumberText(String originalData, NumberType numberType, ExpandParameter expandParameter, int expandMaxLength) {
         String data;
         // avoid pasting data.
-        if(numberType == INumberSeparate.NumberType.Phone) {
-            data = originalData.substring(0, originalData.length() <= INumberSeparate.PHONEMAXLENGTH ? originalData.length() : INumberSeparate.PHONEMAXLENGTH);
-        }else if(numberType == INumberSeparate.NumberType.BankCard){
-            data = originalData.substring(0, originalData.length() <= INumberSeparate.BANKCARDMAXLENGTH ? originalData.length() : INumberSeparate.BANKCARDMAXLENGTH);
-        }else if(numberType == INumberSeparate.NumberType.IdCard){
-            data = originalData.substring(0, originalData.length() <= INumberSeparate.IDCARDMAXLENGTH ? originalData.length() : INumberSeparate.IDCARDMAXLENGTH);
-        }else if(numberType == INumberSeparate.NumberType.Expand){
+        if(numberType == NumberType.Expand){
             data = originalData.substring(0, originalData.length() <= expandMaxLength ? originalData.length() : expandMaxLength);
         } else {
-            data = originalData;
+            data = originalData.substring(0, originalData.length() <= numberType.getMaxLength() ? originalData.length() : numberType.getMaxLength());
         }
 
         char[] bytes = data.toCharArray();
@@ -81,16 +76,8 @@ public class NumberSeparateUtil {
                             else sbAppend(false, sb, bytes, x);
                         }else sbAppend(false, sb, bytes, x);
                         break;
-                    case Phone:
-                        if (x == 3 || x == 7) sbAppend(true, sb, bytes, x);
-                        else sbAppend(false, sb, bytes, x);
-                        break;
-                    case BankCard:
-                        if (x == 4 || x == 8 || x == 12 || x == 16) sbAppend(true, sb, bytes, x);
-                        else sbAppend(false, sb, bytes, x);
-                        break;
-                    case IdCard:
-                        if (x == 6 || x == 14) sbAppend(true, sb, bytes, x);
+                    default:
+                        if (numberType.matching(x)) sbAppend(true, sb, bytes, x);
                         else sbAppend(false, sb, bytes, x);
                         break;
                 }
@@ -112,7 +99,7 @@ public class NumberSeparateUtil {
      * @param numberType number type
      * @return finishing complete data.
      */
-    public static String getNumberText(String data, INumberSeparate.NumberType numberType){
+    public static String getNumberText(String data, NumberType numberType){
         String text = data.trim();
         char[] bytes = text.toCharArray();
         StringBuffer sb = new StringBuffer();

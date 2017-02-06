@@ -35,16 +35,10 @@ import me.luzhuo.numberseparateedittext.callback.ExpandParameter;
  **/
 public interface INumberSeparate {
     String AUTO = "http://schemas.android.com/apk/res-auto";
-    String[] numberTypeAttrs = new String[]{"0", "1", "2", "3", "4"};
-    int PHONEMAXLENGTH = 11, BANKCARDMAXLENGTH = 19, IDCARDMAXLENGTH = 18;
-
-    enum NumberType{
-        Phone, BankCard, IdCard, Expand
-    }
 
     /**
      * set number type.
-     * @param numtype NumberType {@link me.luzhuo.numberseparateedittext.INumberSeparate.NumberType}
+     * @param numtype NumberType {@link me.luzhuo.numberseparateedittext.NumberType}
      */
     void setNumberType(NumberType numtype);
 
@@ -72,4 +66,5 @@ public interface INumberSeparate {
      * @param expandParameter If it is null, don't break up, or implement ExpandParameter interface
      */
     void setExpand(int numbermax, ExpandParameter expandParameter);
+
 }
